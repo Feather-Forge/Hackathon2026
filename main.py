@@ -1,6 +1,44 @@
+import random
+import time
+
+# Add bunny facts
+BUNNY_FACTS = [
+    "Rabbits have nearly 360-degree vision but they can't see directly in front of their nose!",
+    "A rabbit's teeth never stop growing throughout its life.",
+    "Rabbits 'binky' when they're happy - that's when they jump and twist in the air!",
+    "Rabbits can't vomit due to the physiology of their digestive system.",
+    "Bunnies can purr when they're content, similar to cats!",
+    "Wild rabbits can run up to 45 mph (72 km/h) to escape predators.",
+    "A rabbit's ears can be more than 4 inches long and contain blood vessels to regulate temperature.",
+    "Rabbits are crepuscular, meaning they're most active at dawn and dusk.",
+    "A rabbit's diet should be made up of about 80% hay to keep their digestive system healthy.",
+    "A group of rabbits is called a colony or a herd.",
+    "Rabbits have a blind spot directly in front of their face.",
+    "Rabbits can see behind them without turning their head.",
+    "A happy rabbit will sometimes flop over onto its side - this is called a 'flop'.",
+    "A female rabbit is called a doe, a male is a buck, and babies are kits.",
+    "Rabbits can jump as high as 3 feet and as far as 9 feet in a single bound!"
+]
+
+def display_random_fact():
+    """Displays a random bunny fact."""
+    fact = random.choice(BUNNY_FACTS)
+    print("\n🐰 BUNNY FACT 🐰")
+    print(fact)
+    print()
+
+def display_progress(step, total, message=""):
+    """Displays a simple progress indicator."""
+    percentage = int((step / total) * 100)
+    print(f"\nProgress: {percentage}% - {message}")
+    time.sleep(0.5)  # Small pause for effect
+
 def diet_change(size, weight_status):
     # Start with empty list to collect diet recommendations
     diet_plan = []
+
+    display_progress(1, 4, "Analyzing bunny data...")
+    display_random_fact()
 
     if weight_status == "overweight":
         diet_plan.extend(handle_overweight_bunny(size))
@@ -9,22 +47,32 @@ def diet_change(size, weight_status):
     else:  # normal weight
         diet_plan.extend(handle_normal_weight_bunny(size))
 
+    display_progress(4, 4, "Finalizing your bunny's diet plan...")
+    time.sleep(1)  # Slight pause for effect
+
     # final plan
     print("\n--- BUNNY DIET PLAN ---")
     for recommendation in diet_plan:
         print(recommendation)
+        time.sleep(0.2)  # Small pause between recommendations for readability
     print("\nMake changes slowly to avoid tummy troubles.")
     print("Always check with your vet before big diet changes.")
+
+    display_random_fact()
 
 
 def handle_overweight_bunny(size):
     diet_plan = []
+
+    display_progress(2, 4, "Checking dietary requirements...")
 
     # check hay
     diet_plan.extend(check_hay_for_overweight())
 
     # check pellets
     diet_plan.extend(check_pellets_for_overweight(size))
+
+    display_progress(3, 4, "Evaluating nutritional needs...")
 
     # check greens
     diet_plan.extend(check_greens_for_overweight(size))
@@ -100,11 +148,15 @@ def check_treats_for_overweight():
 def handle_underweight_bunny(size):
     diet_plan = []
 
+    display_progress(2, 4, "Checking dietary requirements...")
+
     # check hay
     diet_plan.append("Keep hay available 24/7.")
 
     # check pellets
     diet_plan.extend(recommend_pellets_for_underweight(size))
+
+    display_progress(3, 4, "Evaluating nutritional needs...")
 
     # Check greens
     diet_plan.extend(check_greens_for_underweight(size))
@@ -160,11 +212,15 @@ def check_treats_for_underweight():
 def handle_normal_weight_bunny(size):
     diet_plan = []
 
+    display_progress(2, 4, "Checking dietary requirements...")
+
     # Maintain current good habits
     diet_plan.append("Current feeding looks good - keep it up.")
 
     # Recommend pellets
     diet_plan.extend(recommend_pellets_for_normal(size))
+
+    display_progress(3, 4, "Evaluating nutritional needs...")
 
     # Adjust greens
     diet_plan.extend(check_greens_for_normal(size))
@@ -225,6 +281,8 @@ def check_treats_for_normal():
 
 
 def breedcheck():
+    display_random_fact()
+
     # examples of breeds and sizes
     size = input("Is your bunny small, medium, large, or giant sized? \nSmall: Netherland Dwarf, Jersey Wooly (1-5 lbs)\nMedium: Dutch, Dwarf Lop (6-9lbs)\nLarge: English Lop (9-11 lbs)\nGiant: Flemish Giant (11+ lbs)\n> ").lower()
 
@@ -247,7 +305,7 @@ def breedcheck():
 
 def homepage():
     # first page
-    print("CarrotCounter v1.0.0")
+    print("CarrotCounter v1.0.0 ")
     print('By: Patrick Lee, Max Klochkov, Wesley Liu')
     print("DISCLAIMER: This is just for guidance. Always check with a vet before changing your bunny's diet")
     print("\n")
@@ -255,6 +313,7 @@ def homepage():
 
     # Ask if user wants to start or exit
     if input("Ready to start? (y/n) ").lower() == "y":
+        print("\nLet's find the perfect diet for your bunny!")
         breedcheck()  # Begin the assessment process
     else:
         print("Thanks for using CarrotCounter!")
@@ -262,4 +321,6 @@ def homepage():
 
 # Start the program when script is run directly
 if __name__ == "__main__":
+    # Set random seed for consistent behavior if needed
+    random.seed()
     homepage()
